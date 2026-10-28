@@ -1,6 +1,6 @@
 
 from abc import ABC, abstractmethod
-from typing import Any
+from typing import Any, Sequence
 
 
 class DataProcessor(ABC):
@@ -42,8 +42,8 @@ class NumericProcessor(DataProcessor):
 
     def ingest(
         self,
-        data: int | float | list[int | float],
-    ) -> None:  # type: ignore[override]
+        data: int | float | Sequence[int | float],
+    ) -> None:
         if not self.validate(data):
             raise ValueError("Improper numeric data")
 
@@ -66,7 +66,6 @@ class TextProcessor(DataProcessor):
         return False
 
     def ingest(self, data: str | list[str]) -> None:
-        # type: ignore[override]
         if not self.validate(data):
             raise ValueError("Improper text data")
 
@@ -103,7 +102,7 @@ class LogProcessor(DataProcessor):
     def ingest(
         self,
         data: dict[str, str] | list[dict[str, str]],
-    ) -> None:  # type: ignore[override]
+    ) -> None:
         if not self.validate(data):
             raise ValueError("Improper log data")
 
